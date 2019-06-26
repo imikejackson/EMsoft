@@ -64,6 +64,11 @@ else()
   message(WARNING "The Eigen Library is required for some algorithms to execute. These algorithms will be disabled.")
 endif()
 
+# --------------------------------------------------------------------
+# EbsdLib support
+include(${CMP_SOURCE_DIR}/ExtLib/EbsdLibSupport.cmake)
+
+
 # Set the GUI type for different platforms
 set(GUI_TYPE )
 
@@ -192,7 +197,9 @@ set(EXE_LINK_LIBRARIES
   EMsoftLib 
   EMsoftWrapperLib 
   H5Support
-  OrientationLib
+  SIMPLib
+  EbsdLib::EbsdLib
+
   )
 
 
@@ -227,6 +234,8 @@ target_include_directories(${PROJECT_NAME}
     ${EMsoftWorkbench_SOURCE_DIR}/QtSupport
     ${EMsoft_SOURCE_DIR}/Source
     ${EMsoftWorkbench_BINARY_DIR}
+    PRIVATE
+    ${EbsdLib_INCLUDE_DIRS}
     )
 
 # #- This installs all the help files. Note that we assume a flat directory structure
